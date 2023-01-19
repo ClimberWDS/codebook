@@ -1,0 +1,7 @@
+spring:
+  application:
+    name: codebook-activiti
+server:
+  port: 6101
+  servlet:
+    context-path: /activiti

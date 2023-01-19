@@ -1,0 +1,29 @@
+server:
+  port: 9002
+  servlet:
+    context-path: /kafka
+spring:
+  application:
+    name: kafka
+  kafka:
+    # kafka集群信息
+#    bootstrap-servers: 10.1.1.169:9092,10.1.1.169:9093,10.1.1.169:9094
+    bootstrap-servers: 10.1.1.169:9093
+    producer:
+      retries: 3
+      batch-size: 16384
+      #缓存大小  32M
+      buffer-memory: 33554432
+      acks: 1
+      # 指定消息key和消息体的编解码方式
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+    consumer:
+      group-id: test-doris-group
+      enable-auto-commit: true
+      auto-commit-interval: 100
+      #当offset为空时 从最新生产的消息开始消费
+      auto-offset-reset: latest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+

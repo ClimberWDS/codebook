@@ -1,0 +1,52 @@
+server:
+  port: 6001
+  servlet:
+    context-path: /ribbon
+
+
+spring:
+  profiles:
+    active: local
+  application:
+    name: codebook-ribbon
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    nacos:
+      config:
+        group: ${spring.profiles.active}
+        prefix: ${spring.application.name}
+        file-extension: yml
+        refresh-enabled: true
+        max-retry: 10
+
+
+---
+#开发环境
+spring:
+  config:
+    activate:
+      on-profile: dev
+  cloud:
+    nacos:
+      config:
+        server-addr: 127.0.0.1:8848
+      discovery:
+        server-addr: 127.0.0.1:8848
+
+
+
+---
+#开发环境
+spring:
+  config:
+    activate:
+      on-profile: dev
+  cloud:
+    nacos:
+      config:
+        server-addr: 10.1.1.202:8848
+        namespace: dcf73cbd-cb98-4057-b5f0-3bd4c56510ee
+      discovery:
+        server-addr: 10.1.1.202:8848
+        namespace: dcf73cbd-cb98-4057-b5f0-3bd4c56510ee

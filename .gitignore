@@ -1,0 +1,58 @@
+# Created by .ignore support plugin (hsz.mobi)
+### Java template
+# Compiled class file
+*.class
+
+# Log file
+*.log
+
+# BlueJ files
+*.ctxt
+
+# Mobile Tools for Java (J2ME)
+.mtj.tmp/
+
+# Package Files #
+*.jar
+*.war
+*.nar
+*.ear
+*.zip
+*.tar.gz
+*.rar
+
+# virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
+hs_err_pid*
+
+.idea/.gitignore
+.idea/compiler.xml
+.idea/encodings.xml
+.idea/inspectionProfiles/
+.idea/jarRepositories.xml
+.idea/libraries/
+.idea/misc.xml
+.idea/modules.xml
+.idea/vcs.xml
+chaken-dms-cms-connector/chaken-dms-cms-connector.iml
+chaken-dms-cms-gateway/chaken-dms-cms-gateway.iml
+chaken-dms-common/chaken-dms-common.iml
+chaken-dms-gateway/chaken-dms-gateway.iml
+
+chaken-dms.iml
+.idea/MyBatisCodeHelperDatasource.xml
+.idea/dataSources.xml
+.idea/uiDesigner.xml
+
+
+.DS_Store
+*.iml
+*.class
+target/
+.settings/
+.classpath
+.project
+.idea
+*.versionsBackup
+.nondex
+.idea
+target/

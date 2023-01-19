@@ -1,0 +1,17 @@
+server:
+  port: 9003
+  servlet:
+    context-path: /starter
+
+spring:
+  application:
+    name: starter
+
+report:
+  config:
+    pKey: 10
+#    dmsUrl: http://localhost:8105/service
+#    dmsUrl: http://10.1.1.246:8105
+#    dmsUrl: http://10.1.1.246:8106/service
+    dmsUrl: https://dms.vvtech.tech/service
+    pSecret: acefae2506e44ba0
