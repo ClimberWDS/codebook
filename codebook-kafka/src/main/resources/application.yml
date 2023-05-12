@@ -19,7 +19,7 @@ spring:
       key-serializer: org.apache.kafka.common.serialization.StringSerializer
       value-serializer: org.apache.kafka.common.serialization.StringSerializer
     consumer:
-      group-id: test-doris-group
+      group-id: defult-consumer-group
       enable-auto-commit: true
       auto-commit-interval: 100
       #当offset为空时 从最新生产的消息开始消费

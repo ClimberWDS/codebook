@@ -20,6 +20,8 @@
         <module>codebook-ribbon2</module>
         <module>codebook-dataInsert</module>
         <module>codebook-activiti</module>
+        <module>codebook-rocketmq</module>
+        <module>codebook-polling</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

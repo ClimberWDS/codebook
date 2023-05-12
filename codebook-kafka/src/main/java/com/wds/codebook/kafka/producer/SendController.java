@@ -37,14 +37,6 @@ public class SendController {
         return "{\"code\":0}";
     }
 
-    @GetMapping(value = "/get")
-    public String get() {
-        log.info("请求发送消息！");
-        return "{\"code\":0}";
-    }
-
-
-
 
     @GetMapping( "/sendMsgToDoris")
     public String sendMsgToDoris(Integer num) {

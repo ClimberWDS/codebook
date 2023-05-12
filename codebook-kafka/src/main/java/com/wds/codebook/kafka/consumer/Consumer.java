@@ -23,7 +23,7 @@ public class Consumer {
 
 
 
-    @KafkaListener(topics = {"test-doris-topic1"})
+    @KafkaListener(topics = {"report-callSerial-test"})
     public void listenDoris(ConsumerRecord<?, ?> record){
         Optional<?> kafkaMessage = Optional.ofNullable(record.value());
         if (kafkaMessage.isPresent()) {
