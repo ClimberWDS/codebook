@@ -22,6 +22,7 @@
         <module>codebook-activiti</module>
         <module>codebook-rocketmq</module>
         <module>codebook-polling</module>
+        <module>codebook-gpt</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

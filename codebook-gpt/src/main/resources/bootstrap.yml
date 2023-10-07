@@ -1,0 +1,25 @@
+server:
+  port: 7100
+  servlet:
+    context-path: /gpt
+
+
+spring:
+  profiles:
+    active: local
+  application:
+    name: codebook-gpt
+  main:
+    allow-bean-definition-overriding: true
+  cloud:
+    nacos:
+      config:
+        group: ${spring.profiles.active}
+        prefix: ${spring.application.name}
+        file-extension: yml
+        refresh-enabled: true
+        max-retry: 10
+
+
+openai:
+  token: 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
