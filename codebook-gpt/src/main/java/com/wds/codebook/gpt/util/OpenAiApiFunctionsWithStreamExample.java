@@ -12,8 +12,8 @@ public class OpenAiApiFunctionsWithStreamExample {
 
     public static void main(String... args) {
 //        String token = System.getenv("OPENAI_TOKEN");
-        String t2o3ken = "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";
-        OpenAiService service = new OpenAiService(t2o3ken);
+        String t1oke3n = "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";
+        OpenAiService service = new OpenAiService(t1oke3n);
 
 
         FunctionExecutor functionExecutor = new FunctionExecutor(Collections.singletonList(ChatFunction.builder()

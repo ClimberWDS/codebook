@@ -14,5 +14,5 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 @ConfigurationProperties(prefix = "openapi.config")
 public class OpenApiConfig {
-    private String openApiToken = "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";
+    private String openApiToken ;
 }
