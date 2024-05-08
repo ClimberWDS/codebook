@@ -1,10 +1,8 @@
-package com.alpha.gpt.util;
+package com.wds.codebook.gpt.util;
 
 import com.theokanning.openai.completion.chat.*;
 import com.theokanning.openai.service.FunctionExecutor;
 import com.theokanning.openai.service.OpenAiService;
-import com.alpha.gpt.util.OpenAiApiFunctionsExample.Weather;
-import com.alpha.gpt.util.OpenAiApiFunctionsExample.WeatherResponse;
 import io.reactivex.Flowable;
 
 import java.util.*;
@@ -21,7 +19,7 @@ public class OpenAiApiFunctionsWithStreamExample {
         FunctionExecutor functionExecutor = new FunctionExecutor(Collections.singletonList(ChatFunction.builder()
                 .name("get_weather")
                 .description("Get the current weather of a location")
-                .executor(Weather.class, w -> new WeatherResponse(w.location, w.unit, new Random().nextInt(50), "sunny"))
+                .executor(OpenAiApiFunctionsExample.Weather.class, w -> new OpenAiApiFunctionsExample.WeatherResponse(w.location, w.unit, new Random().nextInt(50), "sunny"))
                 .build()));
 
         List<ChatMessage> messages = new ArrayList<>();

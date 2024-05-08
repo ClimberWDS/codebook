@@ -35,6 +35,12 @@
             <version>0.16.0</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.bitcoinj</groupId>
+            <artifactId>bitcoinj-core</artifactId>
+            <version>0.14.7</version>
+        </dependency>
+
 
         <dependency>
             <groupId>junit</groupId>

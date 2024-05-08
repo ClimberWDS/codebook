@@ -1,4 +1,4 @@
-package com.alpha.gpt.util;
+package com.wds.codebook.gpt.util;
 
 import com.theokanning.openai.completion.CompletionRequest;
 import com.theokanning.openai.completion.chat.ChatCompletionRequest;

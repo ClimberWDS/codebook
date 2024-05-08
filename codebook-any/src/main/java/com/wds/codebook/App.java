@@ -1,10 +1,10 @@
-package com.alpha;
+package com.wds.codebook;
 
 /**
  * Hello world!
  *
  */
-public class OpenAiApp
+public class App 
 {
     public static void main( String[] args )
     {

@@ -1,4 +1,4 @@
-package com.alpha.gpt.util;
+package com.wds.codebook.gpt.util;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonPropertyDescription;

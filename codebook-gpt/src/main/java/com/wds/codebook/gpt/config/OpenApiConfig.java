@@ -1,4 +1,4 @@
-package com.alpha.gpt.config;
+package com.wds.codebook.gpt.config;
 
 import lombok.Data;
 import org.springframework.boot.context.properties.ConfigurationProperties;

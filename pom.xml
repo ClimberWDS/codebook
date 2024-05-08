@@ -23,6 +23,10 @@
         <module>codebook-rocketmq</module>
         <module>codebook-polling</module>
         <module>codebook-gpt</module>
+<!--        <module>codebook-test</module>-->
+        <module>codebook-any</module>
+        <module>codebook-leetcode</module>
+        <module>codebook-web3</module>
     </modules>
     <parent>
         <groupId>org.springframework.boot</groupId>

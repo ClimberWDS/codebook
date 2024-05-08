@@ -1,4 +1,4 @@
-package com.alpha;
+package com.wds.codebook;
 
 import junit.framework.Test;
 import junit.framework.TestCase;

@@ -1,6 +1,6 @@
-package com.alpha.gpt.util;
+package com.wds.codebook.gpt.util;
 
-import com.alpha.gpt.config.OpenApiConfig;
+import com.wds.codebook.gpt.config.OpenApiConfig;
 import com.theokanning.openai.completion.CompletionChoice;
 import com.theokanning.openai.completion.CompletionRequest;
 import com.theokanning.openai.completion.chat.ChatCompletionRequest;
