@@ -13,6 +13,7 @@ import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.bouncycastle.util.encoders.Hex;
 import org.springframework.stereotype.Component;
 import org.web3j.crypto.*;
 import org.web3j.utils.Numeric;
@@ -208,9 +209,9 @@ public class Web3jWalletUtils {
     public static  String signTransaction(String json, ECKeyPair keyPair) {
         Sign.SignatureData signatureData = Sign.signMessage(json.getBytes(), keyPair);
         JSONObject signatureDataJson = new JSONObject();
-        signatureDataJson.put("v", new String(signatureData.getV()));
-        signatureDataJson.put("r", Numeric.toBigInt(signatureData.getR()));
-        signatureDataJson.put("s", Numeric.toBigInt(signatureData.getS()));
+        signatureDataJson.put("v", Hex.toHexString(signatureData.getV()));
+        signatureDataJson.put("r", Hex.toHexString(signatureData.getR()));
+        signatureDataJson.put("s", Hex.toHexString(signatureData.getS()));
         return signatureDataJson.toJSONString();
     }
 //    public static  String signTransaction(String json, ECKeyPair keyPair) {
@@ -238,14 +239,20 @@ public class Web3jWalletUtils {
                 return false;
             }
 
+            log.warn("data:" + strSign);
             JSONObject jsonSign = JSONObject.parseObject(strSign);
             if (jsonSign == null) {
                 return false;
             }
 
-            byte v = jsonSign.getByte("v");
-            byte[] r = Numeric.toBytesPadded(new BigInteger(jsonSign.getString("r")), 32);
-            byte[] s = Numeric.toBytesPadded(new BigInteger(jsonSign.getString("s")), 32);
+            String v1 = jsonSign.getString("v");
+            String r1 = jsonSign.getString("r");
+            String s1 = jsonSign.getString("s");
+            log.warn("r1:" + r1 +"/n"+
+                    " s1:" + s1);
+            byte[] v = Hex.decode(v1);
+            byte[] r = Numeric.toBytesPadded(new BigInteger(Hex.decode(r1)), 32);
+            byte[] s = Numeric.toBytesPadded(new BigInteger(Hex.decode(s1)), 32);
 
             Sign.SignatureData signatureData = new Sign.SignatureData(v, r, s);
 

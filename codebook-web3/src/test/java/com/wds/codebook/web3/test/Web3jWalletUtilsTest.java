@@ -1,5 +1,6 @@
 package com.wds.codebook.web3.test;
 
+import com.alibaba.fastjson.JSONObject;
 import com.alibaba.nacos.common.utils.JacksonUtils;
 import com.wds.codebook.web3.utils.Web3jWalletUtils;
 import lombok.extern.slf4j.Slf4j;
@@ -108,13 +109,13 @@ class Web3jWalletUtilsTest {
         log.warn("钱包助记词: " + mnemonic);
 
         // TODO: 2020/9/24 获取原始数据
-        Map<String,String> data = new HashMap<>();
+        JSONObject data = new JSONObject();
         data.put("fromWalletAddress", bip39Wallet2.getAddress());
         data.put("toWalletAddress", "0x565fe768c659259abn45cf4f1081a663d091bcb9");
         data.put("value", "99.4");
         data.put("chargeWalletAddress", "0xdd05e23c39eead942bcv63fd388ffa13a1a28307");
         data.put("chargeValue", "0.6");
-        String rawData = JacksonUtils.toJson(data);
+        String rawData = data.toJSONString();
         log.warn("原始数据 : " + rawData);
 
         Credentials credentials = WalletUtils.loadBip39Credentials(password, mnemonic);
