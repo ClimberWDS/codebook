@@ -2,19 +2,22 @@ package com.wds.codebook.web3.test;
 
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.nacos.common.utils.JacksonUtils;
+import com.google.common.collect.ImmutableList;
 import com.wds.codebook.web3.utils.Web3jWalletUtils;
 import lombok.extern.slf4j.Slf4j;
+import org.bitcoinj.crypto.*;
+import org.bouncycastle.util.encoders.Hex;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
-import org.web3j.crypto.CipherException;
-import org.web3j.crypto.Credentials;
-import org.web3j.crypto.WalletUtils;
+import org.web3j.crypto.*;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -125,4 +128,101 @@ class Web3jWalletUtilsTest {
         boolean flag = Web3jWalletUtils.verifyTransaction(rawData, bip39Wallet2.getAddress(), sign);
         log.warn("验签结果: " + flag);
     }
+
+    private final static ImmutableList<ChildNumber> BIP44_ETH_ACCOUNT_ZERO_PATH =
+            ImmutableList.of(new ChildNumber(44, true), new ChildNumber(60, true),
+                    ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
+    /**
+     * bip39钱包签名和验证交易
+     */
+    @Test
+    public void signAndVerify1() throws Exception {
+        //12位助记词
+
+        List<String> str= new ArrayList<>() ;
+        //length shaft sponsor ankle during bullet coil sketch connect another stock digital
+        str.add("length");
+        str.add("shaft");
+        str.add("sponsor");
+        str.add("ankle");
+        str.add("during");
+        str.add("bullet");
+        str.add("coil");
+        str.add("sketch");
+        str.add("connect");
+        str.add("another");
+        str.add("stock");
+        str.add("digital");
+
+
+        //使用助记词生成钱包种子
+        byte[] seed = MnemonicCode.toSeed(str, "");
+        DeterministicKey masterPrivateKey = HDKeyDerivation.createMasterPrivateKey(seed);
+        DeterministicHierarchy deterministicHierarchy = new DeterministicHierarchy(masterPrivateKey);
+        DeterministicKey deterministicKey = deterministicHierarchy
+                .deriveChild(BIP44_ETH_ACCOUNT_ZERO_PATH, false, true, new ChildNumber(0));
+        byte[] bytes = deterministicKey.getPrivKeyBytes();
+        ECKeyPair keyPair = ECKeyPair.create(bytes);
+        //通过公钥生成钱包地址
+        String address = Keys.getAddress(keyPair.getPublicKey());
+
+
+        log.warn("助记词：");
+        log.warn(str.toString());
+
+        log.warn("地址：");
+        log.warn("0x"+address);
+
+        log.warn("私钥：");
+        log.warn("0x"+keyPair.getPrivateKey().toString(16));
+
+        log.warn("公钥：");
+        log.warn(keyPair.getPublicKey().toString(16));
+
+
+    }   /**
+     * bip39钱包签名和验证交易
+     */
+    @Test
+    public void signAndVerify() throws Exception {
+
+
+//
+//        助记词：length, shaft, sponsor, ankle, during, bullet, coil, sketch, connect, another, stock, digital
+//        私钥：0x47ae411da5eb66894aa0dae8ca888128205cc7cb23b38675904fda5545c6b2d5
+//        公钥：bed6ad054f6bacfa1a042a33bb89b51bdfedd883d24558cc3563ebf0cb25cc274fb4bf299f3684a8eb36f4b6c9b5b8add3b1bd6fc1b1178269995bf935d8becb
+//        钱包地址：0x4c78c36e376eb1d701b415eaffc15c29c2170981
+
+        String password = "";
+        String mnemonic ="length, shaft, sponsor, ankle, during, bullet, coil, sketch, connect, another, stock, digital";
+        log.warn("钱包助记词: " + mnemonic);
+
+        String addr = "0x4c78c36e376eb1d701b415eaffc15c29c2170981";
+        String priKey = "0x47ae411da5eb66894aa0dae8ca888128205cc7cb23b38675904fda5545c6b2d5";
+        String pubKey = "bed6ad054f6bacfa1a042a33bb89b51bdfedd883d24558cc3563ebf0cb25cc274fb4bf299f3684a8eb36f4b6c9b5b8add3b1bd6fc1b1178269995bf935d8becb";
+
+
+        String rawData = "123456";
+
+        Credentials credentials = Credentials.create(priKey,pubKey);
+
+        String sign = Web3jWalletUtils.signTransaction(rawData, credentials.getEcKeyPair());
+
+        log.warn("地址 : " + credentials.getAddress());
+        log.warn("私钥 : " + credentials.getEcKeyPair().getPrivateKey() );
+        log.warn("公钥 : " + credentials.getEcKeyPair().getPublicKey());
+        log.warn("sign : " + sign);
+
+        String sign2 = "{\"r\":\"653fc7afb50e0e323b2c2bbc58475bd2e7a594aa33f32ccafa3084f91156ae5c\",\"s\":\"53dfc52b60ea9f29f057aae7777d2237237ebd0761e178d279515cf4609540c2\",\"v\":\"1b\"}";
+        boolean flag = Web3jWalletUtils.verifyTransaction(rawData,addr, sign2);
+        log.warn("验签结果: " + flag);
+    }
+
+
+
+
+
+
+
+
 }
