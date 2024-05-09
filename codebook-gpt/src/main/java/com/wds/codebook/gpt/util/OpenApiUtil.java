@@ -52,7 +52,7 @@ public class OpenApiUtil {
 
     }
     public static OpenAiService init(){
-        String t1oke3n = "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";
+        String t1oke3n = "";
         return new OpenAiService(t1oke3n, Duration.ofSeconds(30));
 //        return new OpenAiService(openApiConfig.getOpenApiToken(), Duration.ofSeconds(30));
     }

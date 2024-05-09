@@ -12,7 +12,7 @@ public class OpenAiApiFunctionsWithStreamExample {
 
     public static void main(String... args) {
 //        String token = System.getenv("OPENAI_TOKEN");
-        String t1oke3n = "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";
+        String t1oke3n = "";
         OpenAiService service = new OpenAiService(t1oke3n);
 
 

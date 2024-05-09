@@ -15,7 +15,7 @@ import java.util.List;
 class OpenAiApiExample {
     public static void main(String... args) {
 //        String token = System.getenv("OPENAI_TOKEN");
-        String t2oke2n1 = "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";
+        String t2oke2n1 = "";
         OpenAiService service = new OpenAiService(t2oke2n1, Duration.ofSeconds(30));
 
         System.out.println("\nCreating completion...");
