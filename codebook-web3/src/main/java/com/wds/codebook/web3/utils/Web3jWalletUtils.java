@@ -4,15 +4,18 @@ package com.wds.codebook.web3.utils;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONObject;
 //import com.alibaba.nacos.common.utils.JacksonUtils;
+import com.alibaba.nacos.common.utils.JacksonUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
+import com.google.common.collect.ImmutableList;
 import lombok.Data;
 import lombok.experimental.Accessors;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.bitcoinj.crypto.*;
 import org.bouncycastle.util.encoders.Hex;
 import org.springframework.stereotype.Component;
 import org.web3j.crypto.*;
@@ -25,6 +28,8 @@ import java.security.InvalidAlgorithmParameterException;
 import java.security.NoSuchAlgorithmException;
 import java.security.NoSuchProviderException;
 import java.security.SecureRandom;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 /**
  * @author wds
@@ -38,6 +43,9 @@ public class Web3jWalletUtils {
     private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
     private static final SecureRandom SECURE_RANDOM = SecureRandomUtils.secureRandom();
 
+    private final static ImmutableList<ChildNumber> BIP44_ETH_ACCOUNT_ZERO_PATH =
+            ImmutableList.of(new ChildNumber(44, true), new ChildNumber(60, true),
+                    ChildNumber.ZERO_HARDENED, ChildNumber.ZERO);
     static {
         // 转换为格式化的json
         OBJECT_MAPPER.enable(SerializationFeature.INDENT_OUTPUT);
@@ -377,6 +385,64 @@ public class Web3jWalletUtils {
             this.publicKeyHexStr = Numeric.toHexStringWithPrefix(publicKey);
         }
     }
+
+    public static void getKeyPairByMnemonic(String[] mnemonic)  {
+        List<String> mnemonicList = Arrays.asList(mnemonic);
+        getKeyPairByMnemonic(mnemonicList);
+    }
+
+    /**
+     * 通过助记词生成公私钥对
+     * @param mnemonic 助记词 以英文逗号分隔
+     */
+    public static void getKeyPairByMnemonic(String mnemonic)  {
+        List<String> mnemonicList= Arrays.asList(mnemonic.split(","));
+        getKeyPairByMnemonic(mnemonicList);
+    }
+
+    /**
+     * 通过助记词生成公私钥对
+     * @param mnemonicList 助记词
+     */
+    public static void getKeyPairByMnemonic(List<String> mnemonicList)  {
+        //使用助记词生成钱包种子
+        byte[] seed = MnemonicCode.toSeed(mnemonicList, "");
+        DeterministicKey masterPrivateKey = HDKeyDerivation.createMasterPrivateKey(seed);
+        DeterministicHierarchy deterministicHierarchy = new DeterministicHierarchy(masterPrivateKey);
+        DeterministicKey deterministicKey = deterministicHierarchy
+                .deriveChild(BIP44_ETH_ACCOUNT_ZERO_PATH, false, true, new ChildNumber(0));
+        byte[] bytes = deterministicKey.getPrivKeyBytes();
+        ECKeyPair keyPair = ECKeyPair.create(bytes);
+        //通过公钥生成钱包地址
+        String address = "0x" +Keys.getAddress(keyPair.getPublicKey());
+        String priKey = "0x"+keyPair.getPrivateKey().toString(16);
+        String pubKey = keyPair.getPublicKey().toString(16);
+
+        log.warn("助记词：{}", JacksonUtils.toJson(mnemonicList));
+        log.warn("地址：{}",address);
+        log.warn("私钥：{}",priKey);
+        log.warn("公钥：{}",pubKey);
+
+    }
+
+    /**
+     * 通过私钥生成公钥
+     * @param priKey 私钥
+     */
+    public static void getAddrByPriKey(String priKey)  {
+
+        byte[] bytes = Hex.decode(priKey);
+        ECKeyPair keyPair = ECKeyPair.create(bytes);
+        //通过公钥生成钱包地址
+        String address = "0x" +Keys.getAddress(keyPair.getPublicKey());
+        String pubKey = keyPair.getPublicKey().toString(16);
+
+        log.warn("地址：{}",address);
+        log.warn("私钥：{}",priKey);
+        log.warn("公钥：{}",pubKey);
+
+    }
+
 
     public static void main(String[] args) throws Exception {
         Web3jWalletUtils.CommonWallet commonWallet = Web3jWalletUtils.generateCommonWallet("wds123456");

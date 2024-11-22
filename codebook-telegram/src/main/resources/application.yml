@@ -1,0 +1,8 @@
+server:
+  port: 9009
+  servlet:
+    context-path: /telegram
+
+spring:
+  application:
+    name: codebook-telegram
