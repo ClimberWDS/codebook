@@ -13,8 +13,6 @@ import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 import javax.annotation.Resource;
-import java.net.Authenticator;
-import java.net.PasswordAuthentication;
 import java.util.Objects;
 
 /**
