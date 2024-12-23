@@ -1,6 +1,5 @@
 package com.wds.codebook.kafka.producer;
 
-import com.alibaba.nacos.common.utils.JacksonUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;

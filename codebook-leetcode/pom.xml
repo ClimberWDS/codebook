@@ -3,11 +3,11 @@
     <modelVersion>4.0.0</modelVersion>
     <parent>
         <groupId>com.wds</groupId>
-        <artifactId>codebook-demo</artifactId>
+        <artifactId>codebook</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
 
-    <groupId>com.sato.tup.common</groupId>
+    <groupId>com.wds.codebook.common</groupId>
     <artifactId>codebook-leetcode</artifactId>
     <packaging>jar</packaging>
 

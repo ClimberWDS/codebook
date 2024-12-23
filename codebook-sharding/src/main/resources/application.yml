@@ -1,0 +1,35 @@
+server:
+  port: 9010
+  servlet:
+    context-path: /sharding
+
+spring:
+  application:
+    name: codebook-sharding
+  shardingsphere:
+    datasource:
+      names: ds0
+      ds0:
+        url: jdbc:mysql://192.168.3.236:3306/tup_sharding
+        username: uprog
+        password: uProg@diy_sota_8866
+        driver-class-name: com.mysql.cj.jdbc.Driver
+    sharding:
+      tables:
+        tb_coin_change_recd:
+          actualDataNodes: ds0.order_${2023..2025}_"_"yyyy_MM # 分表规则
+          tableStrategy:
+            inline:
+              shardingColumn: create_time
+              algorithmExpression: order_${create_time.format('yyyy_MM')}
+      defaultDatabaseStrategy:
+        inline:
+          shardingColumn: create_time
+          algorithmExpression: ds0
+
+sharding:
+  shardingAlgorithms:
+    timeSharding:
+      type: CUSTOM
+      props:
+        algorithmClassName: com.example.TimeShardingTableAlgorithm
